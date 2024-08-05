@@ -22,14 +22,12 @@
 </head>
 <body>
     <header>
-        <h1><img src="https://holoware.co/wp-content/uploads/2024/04/Blue-Logo-new.png" class="logo" alt="Holoware Logo"/  width: 600px></h1>
+        <h1><img src="https://holoware.co/wp-content/uploads/2024/04/Blue-Logo-new.png" class="logo" alt="Holoware Logo" width="600"></h1>
         <h1>Holoware Biomedical Language Models</h1>
         <p>This is a multi-modal medical foundation model. To use it, simply upload your image and type a question or instruction and click 'submit'.</p>
     </header>
 
     <main>
-        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-
         <div class="form-container">
             <form id="uploadForm" action="/" method="post" enctype="multipart/form-data">
                 <label for="image">Input Image:</label>
@@ -76,7 +74,7 @@
     </main>
 
     <footer>
-        <p>Powered by <a href="https://holoware.co" height=148px >Holoware</a></p>
+        <p>Powered by <a href="https://holoware.co">Holoware</a></p>
         <img src="https://holoware.co/wp-content/uploads/2024/04/Blue-Logo-new.png" class="footer-logo" alt="Holoware Logo"/>
     </footer>
 
