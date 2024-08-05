@@ -4,56 +4,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Holoware Medical AI</title>
-    <link rel="icon" type="png/x-icon" href="https://holoware.co/wp-content/uploads/2024/06/favicon-1.ico">
+    <link rel="icon" type="image/x-icon" href="https://holoware.co/wp-content/uploads/2024/06/favicon-1.ico">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <style>
-        
+        /* HTML: <div class="loader"></div> */
         .loader {
             width: 120px;
             height: 20px;
             -webkit-mask: linear-gradient(90deg,#000 70%,#0000 0) left/20% 100%;
-            background:
-                linear-gradient(#213ec0 0 0) left -25% top 0 /20% 100% no-repeat
-                #ddd;
+            background: linear-gradient(#000 0 0) left -25% top 0 /20% 100% no-repeat #ddd;
             animation: l7 1s infinite steps(6);
-        } 
-        
-       
+        }
+        @keyframes l7 {
+            100% {background-position: right -25% top 0;}
+        }
     </style>
-    
 </head>
 <body>
     <header>
-        <h1><img src="https://holoware.co/wp-content/uploads/2024/04/Blue-Logo-new.png" style="width:400px" alt="Holoware Logo"/></h1>
+        <h1><img src="https://holoware.co/wp-content/uploads/2024/04/Blue-Logo-new.png" class="logo" alt="Holoware Logo"/  width: 600px></h1>
         <h1>Holoware Biomedical Language Models</h1>
         <p>This is a multi-modal medical foundation model. To use it, simply upload your image and type a question or instruction and click 'submit'.</p>
     </header>
 
     <main>
-        <form id="uploadForm" action="/" method="post" enctype="multipart/form-data">
-            <label for="image">Input Image:</label>
-            <input type="file" id="image" name="image" accept="image/*" required>
-            <img id="imagePreview" style="display: none; max-width: 150%; height: auto; margin-top: 28px;" />
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 
-            <label for="question">Question/Instruction:</label>
-            <input type="text" id="question" name="question" placeholder="Enter your instruction/question..." required>
+        <div class="form-container">
+            <form id="uploadForm" action="/" method="post" enctype="multipart/form-data">
+                <label for="image">Input Image:</label>
+                <div class="image-container">
+                    <input type="file" id="image" name="image" accept="image/*" required>
+                    <div class="image-preview-wrapper">
+                        <img id="imagePreview" />
+                        <div class="cancel-btn">&times;</div>
+                    </div>
+                </div>
 
-            <!-- LLM section hidden with CSS -->
-            <label for="llm" class="hidden">LLM:</label>
-            <select id="llm" name="llm" class="hidden">
-                <option value="gpt-3.5-turbo">gpt-3.5-turbo</option>
-                <option value="med-alpaca">med-alpaca</option>
-            </select>
+                <label for="question">Question/Instruction:</label>
+                <input type="text" id="question" name="question" placeholder="Enter your instruction/question..." required>
 
-            <button type="submit">Submit</button>
-        </form>
+                <!-- LLM section hidden with CSS -->
+                <label for="llm" class="hidden">LLM:</label>
+                <select id="llm" name="llm" class="hidden">
+                    <option value="gpt-3.5-turbo">gpt-3.5-turbo</option>
+                    <option value="med-alpaca">med-alpaca</option>
+                </select>
+
+                <button type="submit">Submit</button>
+            </form>
+        </div>
 
         <!-- Processing Modal Structure -->
         <div id="processingModal" class="modal hidden">
             <div class="modal-content">
                 <h2>Processing...</h2>
                 <div class="loader"></div>
-                <p>Please wait holoware AI is process your input.</p>
+                <p>Please wait while Holoware AI processes your input.</p>
             </div>
         </div>
 
@@ -61,7 +68,7 @@
         <div id="outputModal" class="modal hidden">
             <div class="modal-content">
                 <span class="close-btn">&times;</span>
-                <h2> Processed Output</h2>
+                <h2>Processed Output</h2>
                 <img id="outputImage" />
                 <pre id="modalContent"></pre>
             </div>
@@ -69,8 +76,8 @@
     </main>
 
     <footer>
-        <p>Powered by <a href="https://holoware.co">Holoware</a></p>
-        <img src="https://holoware.co/wp-content/uploads/2024/04/Blue-Logo-new.png" style="width:100px" alt="Holoware Logo"/>
+        <p>Powered by <a href="https://holoware.co" height=148px >Holoware</a></p>
+        <img src="https://holoware.co/wp-content/uploads/2024/04/Blue-Logo-new.png" class="footer-logo" alt="Holoware Logo"/>
     </footer>
 
     <script>
@@ -78,6 +85,7 @@
             const form = document.getElementById('uploadForm');
             const imageInput = document.getElementById('image');
             const imagePreview = document.getElementById('imagePreview');
+            const cancelBtn = document.querySelector('.cancel-btn');
             const processingModal = document.getElementById('processingModal');
             const outputModal = document.getElementById('outputModal');
             const outputImage = document.getElementById('outputImage');
@@ -91,11 +99,20 @@
                     reader.onload = (e) => {
                         imagePreview.src = e.target.result;
                         imagePreview.style.display = 'block';
+                        cancelBtn.style.display = 'flex';
                     };
                     reader.readAsDataURL(file);
                 } else {
                     imagePreview.style.display = 'none';
+                    cancelBtn.style.display = 'none';
                 }
+            });
+
+            cancelBtn.addEventListener('click', () => {
+                imageInput.value = ''; // Clear the file input
+                imagePreview.src = '';
+                imagePreview.style.display = 'none';
+                cancelBtn.style.display = 'none';
             });
 
             form.addEventListener('submit', async (event) => {

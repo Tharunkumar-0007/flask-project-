@@ -1,38 +1,64 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
-}
-
-header {
-    text-align: center;
-    padding: 20px;
-    background-color: #374f91; /* Changed to a bright blue for better visibility */
-    color: #ffffff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Added shadow for depth */
-}
-
-header h1 {
-    margin: 0;
-    font-size: 2.5em; /* Increased font size for better visibility */
-    font-weight: bold; /* Added bold weight for emphasis */
+    background-color: linear-gradient(135deg, #000 0%, #2575fc 100%);
+    background-image: url('https://images.app.goo.gl/wB8XRczu73YEAemcA.jpg'); /* Replace with your background image URL */
+    background-size: cover; /* Ensures the image covers the entire body */
+    background-position: center; /* Centers the image */
+    background-attachment: fixed; /* Keeps the background image fixed while scrolling */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    color: #333;
 }
 
 main {
     padding: 20px;
     max-width: 800px;
     margin: 0 auto;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.8); /* Adds a semi-transparent white background to make content more readable */
+    border-radius: 8px; /* Optional: Adds rounded corners to main content area */
 }
 
-form {
-    margin-bottom: 20px;
+
+
+header {
+    text-align: center;
+    padding: 15px;
+    background: linear-gradient(135deg, #000 0%, #2575fc 100%);
+    color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5em;
+    font-weight: bold;
+}
+element.style {
+    width: 600px;
+}
+
+
+.form-container {
+    width: 100%;
+    max-width: 600px;
+    background: #fff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
 form label {
     display: block;
     margin-bottom: 5px;
-    font-weight: bold; /* Added bold weight for form labels */
+    font-weight: bold;
 }
 
 form input[type="file"],
@@ -41,22 +67,23 @@ form select {
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
-    border: 1px solid #ced4da; /* Added border for input fields */
-    border-radius: 4px; /* Rounded corners for input fields */
+    border: 1px solid #ced4da;
+    border-radius: 4px;
 }
 
 form button {
-    background-color: #213ec0;
+    background-color: #18438d;
     color: white;
     padding: 15px 20px;
     border: none;
-    border-radius: 4px; /* Rounded corners for button */
+    border-radius: 4px;
     cursor: pointer;
-    font-size: 1em; /* Adjusted font size for better readability */
+    font-size: 1em;
+    transition: background-color 0.3s;
 }
 
 form button:hover {
-    background-color: #372685;
+    background-color: #1b5fc0;
 }
 
 section {
@@ -66,19 +93,37 @@ section {
 footer {
     text-align: center;
     padding: 10px;
-    color: rgb(11, 15, 255);
+    color: #ffffff;
+    background: linear-gradient(135deg, #000 0%, #2575fc 100%);
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0;
+}
+
+footer a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+.footer-logo {
+    width: 200px; /* Adjust the width as needed */
+    height: auto; /* Maintain aspect ratio */
 }
 
 .modal {
-    display: none; /* Hidden by default */
+    display: none;
     position: fixed;
-    z-index: 1; /* Sit on top */
+    z-index: 1;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
 }
 
 .modal-content {
@@ -87,10 +132,11 @@ footer {
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
-    max-width: 800px; /* Increased max-width */
+    max-width: 600px;
     position: relative;
-    border-radius: 8px; /* Rounded corners for modal content */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Added shadow for depth */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
 }
 
 .close-btn {
@@ -111,22 +157,63 @@ footer {
     display: none;
 }
 
-/* Loader styles */
+.image-container {
+    position: relative;
+    display: inline-block;
+}
 
-@keyframes l7 {
-    100% {background-position: right -25% top 0}
+.image-preview-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+#imagePreview {
+    display: none;
+    height: 15cm;
+    width: 12cm;
+    object-fit: cover;
+    margin-top: 28px;
+    border-radius: 8px;
+    border: 2px solid #2575fc;
+}
+
+.cancel-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    display: none;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.cancel-btn:hover {
+    background-color: #f00;
+    color: #fff;
 }
 
 #outputImage {
-    width: 200px; /* Fixed width */
-    height: 200px; /* Fixed height */
-    object-fit: cover; /* Ensures the image covers the entire area */
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
     margin-bottom: 10px;
-    border-radius: 8px; /* Rounded corners for image */
+    border-radius: 8px;
+    border: 2px solid #2575fc;
 }
 
 #modalContent {
-    white-space: pre-wrap; /* Ensures text wraps inside the pre element */
-    max-height: 400px; /* Maximum height for the text area */
-    overflow-y: auto; /* Scroll if content exceeds max height */
+    white-space: pre-wrap;
+    max-height: 400px;
+    overflow-y: auto;
+    text-align: left;
+    font-size: 16px; /* Adjust the size as needed */
 }
+
+
